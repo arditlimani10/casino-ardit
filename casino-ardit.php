@@ -43,6 +43,17 @@ class casinoArdit{
     function register(){
         add_action('wp_enqueue_scripts', array( $this, 'enqueue'));
     }
+    //this function will be used to call the data from api 
+    function fetch_api_data(){
+        $request = wp_remote_get(plugins_url('/data.json', _FILE_ ));
+        $data = json_decode( wp_remote_retrieve_body( $request ) ); 
+        include_once(plugin_dir_path( _FILE_ ).'/templates/casinos-view.php');
+        return $data;
+    }
+    //this function is used to add action for data.json call
+    function register_api_data(){
+            add_action( 'loop_start', array( $this, 'fetch_api_data'));
+    }
 }
 //checking if our class exists first
 if(class_exists('casinoArdit')){
@@ -50,4 +61,6 @@ if(class_exists('casinoArdit')){
     $casinoArdit = new CasinoArdit();
     //initializing the register function
     $casinoArdit->register();
+    //initializing data api call
+    $casinoArdit->register_api_data();
 }
