@@ -28,3 +28,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Casino Ardit Plugin. If not, see {URI to Plugin License}.
 */
+
+//if an user tries to access our file directly without the permission of WordPress, the connection will die, this is made for security reasons
+
+defined('ABSPATH') or die('You cant access this file!');
+
+//Created a class and using OOP
+class casinoArdit{
+    //declared a function that will use to enqueue costum.css for now
+    function enqueue(){
+        wp_enqueue_style('costum', plugins_url('/assets/costum.css', __FILE__ ));
+    }
+    //function that will add action to enqueue stylesheet
+    function register(){
+        add_action('wp_enqueue_scripts', array( $this, 'enqueue'));
+    }
+}
+//checking if our class exists first
+if(class_exists('casinoArdit')){
+    //created an initialized my class
+    $casinoArdit = new CasinoArdit();
+    //initializing the register function
+    $casinoArdit->register();
+}
