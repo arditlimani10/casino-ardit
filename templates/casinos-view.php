@@ -9,34 +9,35 @@
             </ul>
         </div>
         <?php
+        //iterated through object to find the 575 key
         foreach($data->toplists as $dt => $casinoToplists){
             if($dt==575){
+                //iterated through elements to order them by their position value
                 foreach($casinoToplists as $casinoToplist->position => $casinoToplist){
              ?>
         <div class="casino-information">
             <div class="casino-image">
                 <img src="<?= $casinoToplist->logo ?>" alt="casino-image">
-                <a href="<?= home_url().'/'.$casinoToplist->brand_id ?>">Review</a>
+                <a href="<?= get_bloginfo('wpurl').'/'.$casinoToplist->brand_id ?>">Review</a>
             </div>
             <div class="casino-bonus">
                 <div class="casino-bonus-rate">
-                    <p><?= $casinoToplist->info->rating ?></p><br>
-                    <img src="<?php //echo plugins_url( '/casino-ardit/assets/'.$casinoToplist->info->rating.'.png')?>" alt="">
+                    <img src="<?= plugins_url( '/casino-ardit/assets/images/'.$casinoToplist->info->rating.'.png')?>" alt="">
                 </div>
                 <div class="casino-bonus-information">
                     <p><?= $casinoToplist->info->bonus ?></p>
                 </div>        
             </div>
-            <div class="casino-features">
+            <ul class="casino-features">
                 <?php foreach($casinoToplist->info->features as $feature){
                     ?>
-                    <p><?= $feature ?></p> 
+                    <li><?= $feature ?></li> 
                <?php }?>
                  
-            </div>
-            <div class="casino-play">
-                <a href="<?= $casinoToplist->play_url ?>" target="_blank">PLAY NOW</a>
-                <small></small>
+                </ul>
+                <div class="casino-play">
+                    <a class="play-now-btn" href="<?= $casinoToplist->play_url ?>" target="_blank">PLAY NOW</a>
+                    <span class="terms-conditions"><?= $casinoToplist->terms_and_conditions ?></span>
             </div>
         </div>
         <?php 
