@@ -1,14 +1,19 @@
+/****************************
+*                           *
+*       Navigation CSS      *
+*                           *
+****************************/
+.main-casino-section{
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
 .container{
     width: 70%;
     height: auto;
     margin: 0 auto;
     background-color: white;
 }
-/****************************
-*                           *
-*       Navigation CSS      *
-*                           *
-****************************/
 .casino-nav{
     background-color: #D29F36;
     width: 100%;
@@ -27,9 +32,33 @@
     font-weight: bold;
     width: 150px;
 }
-
 /****************************
 *                           *
 *  Casinos informatipn CSS  *
 *                           *
 ****************************/
+.casino-information{
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid #D4D4D4;
+}
+.casino-image{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 0 10px;
+}
+.casino-image img{
+    width: 200px;
+    height: 150px;
+} 
+.casino-image a{
+    text-align:center;
+    color: blue;
+    margin-top: 6px;
+    font-size: 15px;
+}
