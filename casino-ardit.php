@@ -1,6 +1,6 @@
 <?php
 /*
-*@package Casino Plugin
+*   @package CasinoArdit
 */
 
 /*
@@ -13,8 +13,7 @@
  License: GPL v2 or later
  Text Domain: casino-ardit
  */
-
-/*
+ /*
 Casino Ardit Plugin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -33,42 +32,39 @@ along with Casino Ardit Plugin. If not, see {URI to Plugin License}.
 
 defined('ABSPATH') or die('You cant access this file!');
 
-//Created a class and using OOP
 class casinoArdit{
-    //declared a function that will use to enqueue costum.css for now
-    function enqueue(){
-        wp_enqueue_style('costum', plugins_url('/assets/costum.css', __FILE__ ));
-    }
-    //function that will add action to enqueue stylesheet
-    function register(){
-        add_action('wp_enqueue_scripts', array( $this, 'enqueue'));
-    }
-    //this function will be used to call the data from api 
-    function fetch_api_data(){
-        $request = wp_remote_get(plugins_url('/data.json', _FILE_ ));
-        $data = json_decode( wp_remote_retrieve_body( $request ) ); 
-        include_once(plugin_dir_path( _FILE_ ).'/templates/casinos-view.php');
-        return $data;
-    }
-    //this function is used to add action for data.json call
-    function register_api_data(){
-            add_action( 'loop_start', array( $this, 'fetch_api_data'));
-    }
-    function activate(){
+        //registering stylesheet
+        function register(){
+                add_action('wp_enqueue_scripts', array( $this, 'enqueue'));
+        }
+        //Enqueue stylesheet that is used on plugin
+        function enqueue(){
+                wp_enqueue_style('costum', plugins_url('/assets/costum.css', __FILE__ ));
+        }
+        //fetching api data and getting the view file
+        function fetch_api_data(){
+                $request = wp_remote_get(plugins_url('/data.json', __FILE__ ));
+                $data = json_decode( wp_remote_retrieve_body( $request ) ); 
+                include_once(plugin_dir_path( __FILE__ ).'/templates/casinos-view.php');
+                return $data;
+        }
+        //add action to call function for fetching data
+        function register_api_data(){
+                add_action( 'loop_start', array( $this, 'fetch_api_data'));
+        }
+        function activate(){
 
-    }
-    function deactivate(){
-            
-    }
+        }
+        function deactivate(){
+                
+        }
 }
-//checking if our class exists first
+//checking if our class exists, only if our class exists it will instantiate the class and our functions
 if(class_exists('casinoArdit')){
-    //created an initialized my class
-    $casinoArdit = new CasinoArdit();
-    //initializing the register function
-    $casinoArdit->register();
-    //initializing data api call
-    $casinoArdit->register_api_data();
+        //instantiating  our class
+        $casinoArdit = new CasinoArdit();
+        $casinoArdit->register();
+        $casinoArdit->register_api_data();
 }
 //activation hook
 register_activation_hook( __FILE__, array($casinoArdit,'activate'));

@@ -114,3 +114,36 @@
     border-radius: 10px;
     padding: 15px 25px;
 }
+
+@media (max-width: 767px) { 
+    .container{
+        width: 100%;
+    }
+    .casino-nav ul li{
+        width: 90px;
+    }
+    .casino-nav .features{
+        padding-left: 0;
+    }
+    .casino-nav .play{
+        padding-left: 0;
+    }
+    .casino-information{
+        height: 600px;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: auto;
+    }
+    .casino-information .casino-image{
+        width: 100%;
+    }
+    .casino-information .casino-image img{
+        width: 97%;
+    }
+    .casino-information .casino-bonus{
+        max-width: 97%;
+    }
+    .casino-information .casino-features{
+        margin: 0 auto 20px;
+    }
+}
