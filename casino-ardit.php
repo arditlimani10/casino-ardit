@@ -33,35 +33,50 @@ along with Casino Ardit Plugin. If not, see {URI to Plugin License}.
 defined('ABSPATH') or die('You cant access this file!');
 
 class casinoArdit{
-        //registering stylesheet
+        //registering our stylesheet
         function register(){
                 add_action('wp_enqueue_scripts', array( $this, 'enqueue'));
         }
-        //Enqueue stylesheet that is used on plugin
+        //this funtion will is used to enqueue our style sheet
         function enqueue(){
                 wp_enqueue_style('costum', plugins_url('/assets/costum.css', __FILE__ ));
         }
-        //fetching api data and getting the view file
+        //this function is used to fetch data from api and handle the logic of manipulating with data
         function fetch_api_data(){
                 $request = wp_remote_get(plugins_url('/data.json', __FILE__ ));
-                $data = json_decode( wp_remote_retrieve_body( $request ) ); 
+                $datas = json_decode( wp_remote_retrieve_body( $request ));
+                //created an empty array that will be used to sort the positions
+                $filteredData = [];
+                //iterate through datas from json file
+                foreach ($datas->toplists as $dt => $casinoToplists) {
+                        //checking if key is 575 because we will fetch the data only from under that key
+                        if ($dt == 575) {
+                                usort($casinoToplists, function($a, $b) { //Sort the array
+                                        return $a->position > $b->position ? 1 : -1; //Compare the positions
+                                });
+                                //filled the filteredData array with the sorted data based on their position
+                                $filteredData = $casinoToplists;                                                                                                                                                                                                       
+                        }
+                }
                 include_once(plugin_dir_path( __FILE__ ).'/templates/casinos-view.php');
-                return $data;
+                return $filteredData;
         }
-        //add action to call function for fetching data
+
         function register_api_data(){
                 add_action( 'loop_start', array( $this, 'fetch_api_data'));
         }
+        //this function for example can be used to create a post type depends on plugin requirements
         function activate(){
 
         }
+        //this function can be used to delete a post type depends on plugin requirements
         function deactivate(){
                 
         }
 }
-//checking if our class exists, only if our class exists it will instantiate the class and our functions
+//checking if class exists
 if(class_exists('casinoArdit')){
-        //instantiating  our class
+        //instantiating our class
         $casinoArdit = new CasinoArdit();
         $casinoArdit->register();
         $casinoArdit->register_api_data();
