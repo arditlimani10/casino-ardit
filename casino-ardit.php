@@ -54,6 +54,12 @@ class casinoArdit{
     function register_api_data(){
             add_action( 'loop_start', array( $this, 'fetch_api_data'));
     }
+    function activate(){
+
+    }
+    function deactivate(){
+            
+    }
 }
 //checking if our class exists first
 if(class_exists('casinoArdit')){
@@ -64,3 +70,7 @@ if(class_exists('casinoArdit')){
     //initializing data api call
     $casinoArdit->register_api_data();
 }
+//activation hook
+register_activation_hook( __FILE__, array($casinoArdit,'activate'));
+//deactivation hook
+register_deactivation_hook( __FILE__, array($casinoArdit,'deactivate'));
