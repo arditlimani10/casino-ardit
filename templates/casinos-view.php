@@ -21,7 +21,7 @@
             <div class="casino-bonus">
                 <div class="casino-bonus-rate">
                     <p><?= $casinoToplist->info->rating ?></p><br>
-                    <img src="<?php //echo plugins_url( '/casino-ardit/assets/'.$casinoToplist->info->rating.'.png')?>" alt="">
+                    <img src="<?php echo plugins_url( '/casino-ardit/assets/images/'.$casinoToplist->info->rating.'.png')?>" alt="">
                 </div>
                 <div class="casino-bonus-information">
                     <p><?= $casinoToplist->info->bonus ?></p>
